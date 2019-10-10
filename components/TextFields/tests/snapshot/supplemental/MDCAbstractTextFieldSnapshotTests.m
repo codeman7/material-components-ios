@@ -33,6 +33,7 @@
   self.longHelperText = MDCTextFieldSnapshotTestsHelperLongTextLatin;
   self.shortErrorText = MDCTextFieldSnapshotTestsErrorShortTextLatin;
   self.longErrorText = MDCTextFieldSnapshotTestsErrorLongTextLatin;
+  //self.recordMode = YES;
 }
 
 - (void)tearDown {
