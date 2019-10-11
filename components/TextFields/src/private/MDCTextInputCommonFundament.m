@@ -305,7 +305,7 @@ static inline UIColor *MDCTextInputUnderlineColor() {
     _leadingUnderlineLabel.textColor = MDCTextInputDefaultPlaceholderTextColor();
     _leadingUnderlineLabel.font = _textInput.font;
     _leadingUnderlineLabel.textAlignment = NSTextAlignmentNatural;
-    _leadingUnderlineLabel.numberOfLines = 1;
+    _leadingUnderlineLabel.numberOfLines = 0;
     _leadingUnderlineLabel.lineBreakMode = NSLineBreakByTruncatingTail;
     [_leadingUnderlineLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
   }

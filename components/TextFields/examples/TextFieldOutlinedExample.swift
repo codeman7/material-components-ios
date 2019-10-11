@@ -324,7 +324,7 @@ extension TextFieldOutlinedSwiftExample: UITextFieldDelegate {
     } else if textField == zip {
       if let range = fullString.rangeOfCharacter(from: CharacterSet.letters),
         String(fullString[range]).characterCount > 0 {
-        zipController.setErrorText("Error: Zip can only contain numbers",
+        zipController.setErrorText("Error: Zip can only contain numbers a b c  d e f g h i j k l m n o p q r s t u v w x y z",
                                    errorAccessibilityValue: nil)
       } else if fullString.characterCount > 5 {
         zipController.setErrorText("Error: Zip can only contain five digits",
