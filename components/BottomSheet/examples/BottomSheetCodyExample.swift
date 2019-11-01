@@ -3,6 +3,8 @@ import MaterialComponents
 
 class ExampleCode: UIViewController {
   let presentButton = UIButton()
+  let label = UILabel()
+
   override func viewDidLoad() {
     super.viewDidLoad()
 
@@ -12,13 +14,27 @@ class ExampleCode: UIViewController {
     presentButton.sizeToFit()
     presentButton.addTarget(self, action: #selector(presentBottomSheet), for: .touchUpInside)
     view.backgroundColor = .white
-    view.addSubview(presentButton)
+    //view.addSubview(presentButton)
+    label.font = UIFont.preferredFont(forTextStyle: .body)
+    if #available(iOS 11.0, *) {
+      label.adjustsFontForContentSizeCategory = true
+    }
+    label.textColor = .black
+    label.text = "Foo"
+    view.addSubview(label)
   }
 
   override func viewWillLayoutSubviews() {
     super.viewWillLayoutSubviews()
 
-    presentButton.center = view.center
+    //presentButton.center = view.center
+
+    label.sizeToFit()
+    label.center = view.center
+    if #available(iOS 11.0, *) {
+      let size = label.bounds.height
+      print("Traitcollection.preferred = \(traitCollection.preferredContentSizeCategory) sizeThatFits: \(size)")
+    }
   }
 
   @objc func presentBottomSheet() {
