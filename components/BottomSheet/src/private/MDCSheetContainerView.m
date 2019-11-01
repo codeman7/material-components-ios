@@ -70,6 +70,7 @@ static const CGFloat kSheetBounceBuffer = 150;
     _contentView = contentView;
     _contentView.autoresizingMask =
         UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    _contentView.tag = 9;
 
     [_sheet addSubview:_contentView];
     [self addSubview:_sheet];
