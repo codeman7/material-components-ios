@@ -128,14 +128,16 @@ static NSDictionary<UIContentSizeCategory, NSNumber *> *CustomScalingCurve() {
 - (void)testAlertControllerTyphography {
   // Given
   UIFont *testFont = [UIFont boldSystemFontOfSize:30];
+  MDCAlertControllerView *view = (MDCAlertControllerView *)self.alert.view;
 
   // When
   self.alert.titleFont = testFont;
   self.alert.messageFont = testFont;
-  self.alert.buttonFont = testFont;
+  for (UIButton *button in view.actionManager.buttonsInActionOrder) {
+    button.titleLabel.font = testFont;
+  }
 
   // Then
-  MDCAlertControllerView *view = (MDCAlertControllerView *)self.alert.view;
   XCTAssertEqualObjects(view.titleLabel.font, testFont);
   XCTAssertEqualObjects(view.messageLabel.font, testFont);
   for (UIButton *button in view.actionManager.buttonsInActionOrder) {
@@ -258,17 +260,24 @@ static NSDictionary<UIContentSizeCategory, NSNumber *> *CustomScalingCurve() {
 }
 
 - (void)testTheViewIsNotLoadedWhenPropertiesAreSet {
+  // Given
   UIColor *testColor = [UIColor redColor];
+
+  // When
   self.alert.titleColor = testColor;
   self.alert.messageColor = testColor;
   self.alert.buttonTitleColor = testColor;
   self.alert.buttonInkColor = testColor;
   self.alert.titleFont = [UIFont systemFontOfSize:12];
   self.alert.messageFont = [UIFont systemFontOfSize:14];
-  self.alert.buttonFont = [UIFont systemFontOfSize:10];
-  [self.alert addAction:[MDCAlertAction actionWithTitle:@"test"
-                                                handler:^(MDCAlertAction *_Nonnull action){
-                                                }]];
+  MDCAlertAction *testAction = [MDCAlertAction actionWithTitle:@"test"
+                                                       handler:^(MDCAlertAction *_Nonnull action){
+                                                                }];
+  [self.alert addAction:testAction];
+  MDCButton *testButton = [self.alert buttonForAction:testAction];
+  testButton.titleLabel.font = [UIFont systemFontOfSize:10];
+
+  // Then
   XCTAssertFalse(self.alert.isViewLoaded);
 }
 
@@ -420,7 +429,8 @@ static NSDictionary<UIContentSizeCategory, NSNumber *> *CustomScalingCurve() {
                                                        }];
   [self.alert addAction:fakeAction];
   UIFont *fakeButtonFont = [UIFont systemFontOfSize:45];
-  self.alert.buttonFont = fakeButtonFont;
+  MDCButton *fakeButton = [self.alert buttonForAction:fakeAction];
+  fakeButton.titleLabel.font = fakeButtonFont;
   self.alert.adjustsFontForContentSizeCategoryWhenScaledFontIsUnavailable = NO;
 
   // When
@@ -449,7 +459,8 @@ static NSDictionary<UIContentSizeCategory, NSNumber *> *CustomScalingCurve() {
                                                        }];
   [self.alert addAction:fakeAction];
   UIFont *fakeButtonFont = [UIFont systemFontOfSize:45];
-  self.alert.buttonFont = fakeButtonFont;
+  MDCButton *fakeButton = [self.alert buttonForAction:fakeAction];
+  fakeButton.titleLabel.font = fakeButtonFont;
   self.alert.adjustsFontForContentSizeCategoryWhenScaledFontIsUnavailable = YES;
 
   // When

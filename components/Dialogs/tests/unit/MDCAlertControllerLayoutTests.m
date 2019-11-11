@@ -15,6 +15,7 @@
 #import "MaterialDialogs.h"
 
 #import "MDCAlertControllerView+Private.h"
+#import "MDCAlertController+ButtonForAction.h"
 
 #import <XCTest/XCTest.h>
 
@@ -51,12 +52,15 @@ static const CGFloat kFourInchLandscapeWidth = 568.0;
     dialogButtonFont = [UIFont systemFontOfSize:26.0];
   }
   _alertController.messageFont = dialogBodyFont;
-  _alertController.buttonFont = dialogButtonFont;
 
   MDCAlertAction *retryAction = [MDCAlertAction actionWithTitle:@"دوبارہ کوشش کریں" handler:nil];
   MDCAlertAction *cancelAction = [MDCAlertAction actionWithTitle:@"منسوخ کریں" handler:nil];
   [_alertController addAction:retryAction];
   [_alertController addAction:cancelAction];
+  MDCButton *retryButton = [_alertController buttonForAction:retryAction];
+  retryButton.titleLabel.font = dialogButtonFont;
+  MDCButton *cancelButton = [_alertController buttonForAction:cancelAction];
+  cancelButton.titleLabel.font = dialogButtonFont;
 }
 
 - (void)tearDown {

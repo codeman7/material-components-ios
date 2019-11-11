@@ -18,9 +18,11 @@
 #import <UIKit/UIKit.h>
 
 #import "../../src/private/MDCDialogShadowedView.h"
+#import "../../src/private/MDCAlertControllerView+Private.h
 #import "MaterialColor.h"
 #import "MaterialDialogs.h"
 #import "MaterialTypography.h"
+#import "MDCAlertController+ButtonForAction.h"
 
 static NSDictionary<UIContentSizeCategory, NSNumber *> *CustomScalingCurve() {
   static NSDictionary<UIContentSizeCategory, NSNumber *> *scalingCurve;
@@ -129,7 +131,8 @@ static NSDictionary<UIContentSizeCategory, NSNumber *> *CustomScalingCurve() {
   UIFont *buttonFont = [UIFont fontWithName:@"Zapfino" size:14];
   buttonFont = [buttonFontScaler scaledFontWithFont:buttonFont];
   buttonFont = [buttonFont mdc_scaledFontAtDefaultSize];
-  self.alertController.buttonFont = buttonFont;
+  MDCButton *fakeButton = [self.alertController buttonForAction:fakeAction];
+  fakeButton.titleLabel.font = buttonFont;
   self.alertController.view.bounds = CGRectMake(0, 0, 300, 300);
 }
 
@@ -168,6 +171,10 @@ static NSDictionary<UIContentSizeCategory, NSNumber *> *CustomScalingCurve() {
   UIFont *originalFont = [UIFont fontWithName:@"Zapfino" size:1];
   self.alertController.messageFont = originalFont;
   self.alertController.titleFont = originalFont;
+  MDCAlertControllerView *alerView = (MDCAlertControllerView *)self.alertController.view;
+  for (UIButton *button in alerView.actionManager.buttonsInActionOrder) {
+    
+  }
   self.alertController.buttonFont = originalFont;
   [self setAlertControllerContentSizeCategory:UIContentSizeCategoryExtraSmall];
   self.alertController.adjustsFontForContentSizeCategoryWhenScaledFontIsUnavailable = NO;
